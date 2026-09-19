@@ -1,9 +1,9 @@
-Wellness — Learn How Adults Work. Life Goes On.
+# Wellness — Learn How Adults Work. Life Goes On.
 > Not a GBV website. Not a teaching website. A raw wellness journal that even judges keep.
 
 🌿 Live: sage calm, beige, local-first. `Private • No account • Local only • Just you`
 
-The Problem
+## The Problem
 Wellness apps assume the individual's problem. They give 6 cards: "you are bullied".
 
 But adults are insecure about themselves. Sometimes they are the problem. Sometimes no problem — just low self.
@@ -12,7 +12,7 @@ Errors are blurred lines. Violence has traits of environment. We can learn harmo
 
 If we label, we become a website, not wellness.
 
-Adult Struggles We Mirror
+## Adult Struggles We Mirror
 For all adult struggles, not just one:
 
 1. **The Age Clock** — "Why haven't I figured abc by this age?" Still single, no house, comparing.
@@ -28,7 +28,7 @@ For all adult struggles, not just one:
 11. **Growth vs Loyalty Guilt** — Growing feels like betraying family or friends.
 12. **The Test** — You will be tested, it's okay. You will lose, it's also okay. Move with both lenses.
 
-How It Works — Raw Model
+## How It Works — Raw Model
 We don't teach. We listen. AI learns from raw.
 
 **1. Landing — Hero**
@@ -38,7 +38,7 @@ Code name only. No email. Rotating hook: *"Good friendship, bad advice — both 
 No question, no assumption. Placeholder: `Raw thought no filter... Zvakanaka, edza mangwana`. Capture → Mirror.
 
 **3. Chat — AI first, helper by need**
-`raw, no filter...` → Claude via Netlify AI Gateway. Under 90 words, warm, Shona touch. Forbids: victim, abuser, narcissist, trauma, GBV labels. Uses: "I notice...", 1 soft question, tiny action + hope.
+`raw, no filter...` → Gemini via Netlify AI Gateway. Under 90 words, warm, Shona touch. Forbids: victim, abuser, narcissist, trauma, GBV labels. Uses: "I notice...", 1 soft question, tiny action + hope.
 
 **4. Letterbox — To Future You**
 Not letter to them. To Future Me: "Forgive yourself for choosing with the heart you had then." 
@@ -62,45 +62,54 @@ Anonymous feed of 15 truths — errors are human, not just you. Plus Private Aud
     - Not medical, not crisis. 18+. If unsafe, I talk to human
 - Choices: `My Phone — Encrypted File (safest)` downloads `wellness-YYYY-MM-DD.json`, `My Drive` (you upload), `My Email` (you send). File leaves phone only to YOUR saver. We cannot see.
 
-Tech — Vanilla SPA, Disguised, Local-First
+## Tech — Vanilla SPA, Disguised, Local-First
+```text
 wellness/
-├── http://index.html          # 6-div SPA: welcome, thought, chat, future, mirror, life, settings
+├── index.html          # 6-div SPA: welcome, thought, chat, future, mirror, life, settings
 ├── css/style.css       # calm beige #f6f1e8 + sage #8da99a, 28px radius, hero landing
 ├── js/
-│   ├── http://store.js        # localStorage only — raws, futures, chats, growth
-│   ├── http://app.js          # show/hide pages + growth counter + Quick Exit → Google
-│   ├── http://chat.js         # chat + mod queue (?mod=1)
-│   └── http://ai.js           # calls /.netlify/functions/ai (Claude) — offline fallback
+│   ├── store.js        # localStorage only — raws, futures, chats, growth
+│   ├── app.js          # show/hide pages + growth counter + Quick Exit → Google
+│   ├── chat.js         # chat + mod queue (?mod=1)
+│   └── ai.js           # calls /.netlify/functions/ai (Gemini) — offline fallback
 ├── netlify/
-│   └── functions/ai.js # Netlify AI Gateway → Claude, prompt with 12 adult struggles
-├── http://terms.html          # Help as a Service shield — badges, consent status
-└── http://README.md
+│   └── functions/ai.js # Netlify AI Gateway → Gemini, prompt with 12 adult struggles
+├── terms.html          # Help as a Service shield — badges, consent status
+└── README.md
+```
 - **Frontend:** Vanilla JS, 1 HTML, no framework, Quick Exit top-right
 - **Backend:** Netlify Functions + AI Gateway (no key in frontend)
 - **Safety:** Disguised as wellness journal, code name only, no account, 18+
 - **Design:** Sage calm, blurred human — not clinical
 
-Privacy — Help as a Service
+## Privacy — Help as a Service
 - Not medical advice. Not crisis. Local only, we don't store thoughts on server.
 - If unsafe, talk to trusted person or Friendship Bench.
 - You own your data. Delete: Settings → Stay Local Only or clear site data.
 
-Run Locally
+## Run Locally
+
+### Frontend only (works offline)
 ```bash
-Frontend only (works offline)
 open index.html
-or
+# or
 npx serve .
+```
 
-With AI (Netlify)
+### With AI (Netlify)
+```bash
 netlify dev
-Needs env: ANTHROPIC_API_KEY in Netlify dashboard (via AI Gateway)
+# Needs env: GEMINI_API_KEY in Netlify dashboard (via AI Gateway)
+```
 
-Legacy backend (if using Node http)
+### Legacy backend (if using Node http)
+```bash
 cd backend
-npm install dotenv @anthropic-ai/sdk
+npm install dotenv @google/generative-ai
 node server.js
-Judges Flow (2 min demo)
+```
+
+## Judges Flow (2 min demo)
 1. Welcome — hook rotates: "Some friends call for alcohol, not business" → code name
 2. Raw Thought — types: "I love them but they keep me small" → Capture
 3. Mirror — Reflect → "Not all good people are good for growth..."
@@ -110,7 +119,7 @@ Judges Flow (2 min demo)
 
 *Pitch:* _The app even judges keep. Because wellness is ongoing — even apologizing to yourself is growth. Life goes on. Edza mangwana._
 
-Vision
+## Vision
 > Learn How Adults Work. Life Goes On.
 
 We all learned punishment somewhere. What did you learn? Wellness is not about being fixed. It's about moving from one bad situation with both lenses, believing there is something for you out there.
