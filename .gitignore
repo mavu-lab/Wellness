@@ -1,0 +1,5 @@
+.env
+node_modules
+netlify/functions/node_modules
+wellness-*.json
+.DS_Store

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wellness — Life Goes On</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<button id="quickExit" onclick="quickExit()">Quick Exit ✕</button>
+
+<div id="p-welcome" class="page active">
+  <div class="card" style="text-align:center;margin-top:30px">
+    <div style="font-size:32px">🌿</div>
+    <h1>Wellness</h1>
+    <p>Learn How Adults Work.<br>Life Goes On.</p>
+    <small id="rotatingHook" style="display:block;margin:18px 0;color:var(--muted);font-style:italic">Why haven't I figured this by 32?</small>
+    <input id="codename" placeholder="your code name...">
+    <button class="btn" onclick="enter()">Enter →</button>
+    <small style="display:block;margin-top:12px;opacity:.7">Private • No account • Local only • Just you • <a href="terms.html">Terms</a></small>
+  </div>
+</div>
+
+<div id="p-thought" class="page">
+  <h3>← Raw Thought</h3>
+  <div class="card">
+    <textarea id="raw" rows="7" placeholder="Raw thought no filter... Life goes on"></textarea>
+    <small id="rawHint" style="display:block;margin-top:8px;color:var(--muted)"></small>
+    <button class="btn" style="margin-top:12px" onclick="captureThought()">Capture →</button>
+    <div id="growth" style="margin-top:14px;font-size:13px;color:var(--muted)"></div>
+  </div>
+</div>
+
+<div id="p-chat" class="page">
+  <h3>💬 Chat</h3><small>AI first, helper by need — adulting, not judging</small>
+  <div id="chatBox" class="card" style="height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px"></div>
+  <div style="display:flex;gap:8px;margin-top:10px">
+    <input id="chatInput" placeholder="raw, no filter..." style="flex:1">
+    <button class="btn" style="width:80px" onclick="sendChat()">Send</button>
+  </div>
+  <div id="modQueue" class="card" style="display:none"></div>
+  <div id="aiSuggestions" style="display:flex;flex-direction:column"></div>
+  <div style="display:flex;gap:8px;margin-top:8px;display:none" id="modBar">
+    <input id="modInput" placeholder="helper reply..." style="flex:1">
+    <button class="btn btn-ghost" onclick="sendMod()">Send as Helper</button>
+  </div>
+</div>
+
+<div id="p-future" class="page">
+  <h3>✉️ To Future You</h3>
+  <div class="card">
+    <small>Forgive with the heart you had then. Death of something is birth of something.</small>
+    <textarea id="future" rows="5" placeholder="Dear Future Me, I hope you forgave yourself..."></textarea>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <input id="lens1" placeholder="What happened? (Lens 1)">
+      <input id="lens2" placeholder="What did I learn? (Lens 2)">
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn" style="flex:1" onclick="sealLetter(2)">Seal 2 days — Try tomorrow</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="sealLetter(30)">Seal 30 days</button>
+    </div>
+  </div>
+</div>
+
+<div id="p-mirror" class="page">
+  <h3>🪞 Mirror</h3>
+  <div class="card">
+    <h3 id="mirrorText">Your pattern will appear here. No label, just blurred human.</h3>
+    <p id="mirrorHelper" style="font-size:13px;color:var(--muted);margin-top:10px">You okay. You can try tomorrow. Life goes on.</p>
+    <button class="btn btn-ghost" onclick="reflect()">Reflect My Raws</button>
+  </div>
+</div>
+
+<div id="p-life" class="page">
+  <h3>👥 Life Goes On</h3><small>15 truths • anonymous • synthetic — no real names</small>
+  <div id="lifeFeed" class="card" style="margin-top:10px;min-height:70px"></div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="btn btn-ghost" style="flex:1" onclick="nextTruth(-1)">← Prev</button>
+    <small id="lifeCount" style="padding:10px;opacity:.6">1/15</small>
+    <button class="btn btn-ghost" style="flex:1" onclick="nextTruth(1)">Next →</button>
+  </div>
+  <div class="card" style="border:1.5px dashed var(--sage);margin-top:12px">
+    <strong>Are you growing?</strong><br><small>Private — local only, not sent</small>
+    <input id="growCall" placeholder="Who calls you for growth?" style="margin-top:10px">
+    <input id="escapeCall" placeholder="Who calls you for escape?" style="margin-top:8px">
+    <button class="btn btn-ghost" style="margin-top:8px" onclick="audit()">See blurred truth</button>
+    <p id="auditText" style="font-size:13px;margin-top:10px;line-height:1.5"></p>
+  </div>
+</div>
+
+<div id="p-settings" class="page">
+  <h3>⚙️ Cloud Saver — Optional</h3>
+  <div class="card" style="background:var(--bg);border:1px dashed var(--line)">
+    <p style="font-size:13px"><b>Local by default:</b> We cannot recover your data. Privacy shield.<br>If you journal to organize life, CHOOSE cloud — YOUR saver.</p>
+  <label class="check-row"><input type="checkbox" id="consent1"><span>My thoughts will leave phone to MY saver</span></label>
+    <label style="font-size:13px;display:block"><input type="checkbox" id="consent2"> I own my data. Wellness = Help as a Service, not liable</label>
+    <label style="font-size:13px;display:block"><input type="checkbox" id="consent3"> Not medical, not crisis. 18+. If unsafe, I talk to human</label><br>
+    <select id="saverChoice" style="width:100%;padding:8px"><option value="file">My Phone — Encrypted File (safest)</option><option value="drive">My Google Drive — I upload</option><option value="email">My Email — Send to self</option></select><br><br>
+    <button class="btn" onclick="enableCloudSaver()">I CONSENT — Enable Cloud Saver</button>
+    <button class="btn btn-ghost" style="margin-top:8px" onclick="disableCloudSaver()">Stay Local Only</button>
+    <p id="cloudStatus" style="font-size:11px;margin-top:10px;opacity:.7">Status: Local Only — We cannot see or recover.</p>
+  </div>
+  <div class="card" style="margin-top:12px"><a href="terms.html">Read full Terms — Help as a Service</a></div>
+</div>
+
+<nav>
+  <span onclick="show('p-thought')" id="n-thought">💭</span>
+  <span onclick="show('p-chat')" id="n-chat">💬</span>
+  <span onclick="show('p-future')" id="n-future">✉️</span>
+  <span onclick="show('p-mirror')" id="n-mirror">🪞</span>
+  <span onclick="show('p-life')" id="n-life">🌱</span>
+  <span onclick="show('p-settings')" id="n-settings">⚙️</span>
+</nav>
+
+<footer style="opacity:.6;font-size:10px;text-align:center;margin:60px 10px 80px">Not medical advice. Local only, we don't store your thoughts on our server. If unsafe, talk to trusted person or Friendship Bench. <a href="terms.html">Help as a Service — Terms</a> • Life goes on.</footer>
+
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+<script src="js/chat.js"></script>
+<script type="module">
+  import * as AI from './js/ai.js';
+  window.WellnessAI = AI;
+</script>
+<script>
+// --- 15 truths from Adult Struggles list - no vernacular ---
+const lifeTruths = [
+  "Age Clock: Why haven't I figured it out by this age? Heavy, blurred, human. Life goes on.",
+  "Money extremes: Wealth for family, excess or nothing, provider burnout, black tax. Heavy.",
+  "Not you: Partner has hard background, not you but you feel it. Both true.",
+  "Adult bullying: Changed face from fists to gossip, mind games, WhatsApp exclusion.",
+  "Two healed people: Relationship needs 2 peaces. One peace is not enough.",
+  "Fix vs Let Go: Heal scars, forgive parents, forgive self. Both human.",
+  "Self Shame: What did I do? Why did I choose this partner? 3am replay, heavy.",
+  "Destructive habits: Doom scroll, over-explain, saying yes, checking phone, drinking. 1% less.",
+  "Good friendship bad advice: Friends call for alcohol not business idea. Are you growing?",
+  "Growth vs Loyalty guilt: Staying loyal to them feels like leaving me. Blurred.",
+  "The Test: You will be tested it's okay, you will lose it's also okay. Move with both.",
+  "I notice good person bad advice — both true. Sometimes insecurity sometimes control.",
+  "You can't suffer one misdeed forever — something is out there for you too.",
+  "Life Goes On: Death of something is birth of something. Try tomorrow, 1% more peace.",
+  "Try tomorrow: 1% less comfort that destroys, 1% more peace that builds. Life goes on."
+];
+let lifeIdx = 0;
+function renderTruth(){
+  const el=document.getElementById('lifeFeed');
+  if(el) el.innerHTML=`<small style="line-height:1.5">${lifeTruths[lifeIdx]}</small>`;
+  const c=document.getElementById('lifeCount');
+  if(c) c.innerText=`${lifeIdx+1}/15`;
+}
+function nextTruth(d){
+  lifeIdx=(lifeIdx+d+15)%15;
+  renderTruth();
+}
+
+const hooks=["Why haven't I figured this by 32?","Some friends call for alcohol, not business","Did I choose from wound or want?","Good friendship, bad advice — both true","Adult bullying is gossip now","You will be tested, you will lose — it's okay"];
+let hi=0;
+setInterval(()=>{
+  const el=document.getElementById('rotatingHook'); if(el){ el.innerText=hooks[hi%hooks.length]; hi++; }
+  const h2=document.getElementById('rawHint'); if(h2){ h2.innerText="e.g., "+hooks[(hi+1)%hooks.length]; }
+},3200);
+
+function audit(){
+  let g=document.getElementById('growCall').value.trim();
+  let e=document.getElementById('escapeCall').value.trim();
+  let out=document.getElementById('auditText');
+  if(!g && !e){ out.innerText="Write two names — private, local only."; return; }
+  // Rule: Mirror gently, blurred line, 1 question, tiny action + hope, under 90 words
+  out.innerText = `I notice ${g||'growth'} brings growth and ${e||'escape'} brings escape — good person bad advice, both true. Are you loyal to them or to your becoming? Try one less escape this week. Life goes on, something is out there for you.`;
+}
+
+function quickExit(){ window.location.href="https://google.com"; window.history.replaceState({},'', '/'); }
+
+async function reflect(){
+  const raws = Store.getRaws().map(r=>r.text).join('\n').slice(-1200);
+  if(!raws){ document.getElementById('mirrorText').innerText="Write one raw first — no filter."; return; }
+  document.getElementById('mirrorText').innerText="Mirroring...";
+  try{
+    const data = await window.WellnessAI.getMirror(raws);
+    document.getElementById('mirrorText').innerText = data.mirror;
+    document.getElementById('mirrorHelper').innerText = `Helper: ${data.helper} — You okay, try tomorrow.`;
+  }catch(e){
+    document.getElementById('mirrorText').innerText="I notice heavy tonight — blurred, human. Good person bad habit, both true. Life goes on, try tomorrow 1% less.";
+  }
+}
+
+function enableCloudSaver(){
+  const c1=document.getElementById('consent1').checked;
+  const c2=document.getElementById('consent2').checked;
+  const c3=document.getElementById('consent3').checked;
+  if(!c1||!c2||!c3) return alert('Check all 3 consents');
+  const choice=document.getElementById('saverChoice').value;
+  localStorage.setItem('cloudConsent','yes');
+  localStorage.setItem('saverChoice',choice);
+  document.getElementById('cloudStatus').innerText=`Status: Consent yes — ${choice}`;
+}
+function disableCloudSaver(){
+  localStorage.setItem('cloudConsent','no');
+  document.getElementById('cloudStatus').innerText='Status: Local Only';
+}
+function sealLetter(days=30){
+  let v=document.getElementById('future').value.trim(); if(!v) return;
+  let l1=document.getElementById('lens1')?.value||''; let l2=document.getElementById('lens2')?.value||'';
+  let full = v + (l1?`\nLens1:${l1}`:'') + (l2?`\nLens2:${l2}`:'');
+  Store.saveFuture(full);
+  let arr=Store.getFutures(); arr[arr.length-1].unlock=Date.now()+days*24*60*60*1000;
+  localStorage.setItem('futures', JSON.stringify(arr));
+  document.getElementById('future').value=''; document.getElementById('lens1').value=''; document.getElementById('lens2').value='';
+  if(typeof updateGrowth==='function') updateGrowth();
+  alert(`Sealed for ${days} days`);
+}
+if(window.location.search.includes('mod=1')){
+  const mq=document.getElementById('modQueue'); if(mq) mq.style.display='block';
+  const mb=document.getElementById('modBar'); if(mb) mb.style.display='flex';
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderTruth();
+  const ci=document.getElementById('chatInput');
+  if(ci) ci.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendChat(); });
+});
+</script>
+</body>
+</html>

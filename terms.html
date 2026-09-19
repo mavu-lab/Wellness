@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wellness — Growth + Training</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.wrap{max-width:480px;margin:0 auto;padding:28px 18px 100px}
+.small{font-size:11px;opacity:.6;line-height:1.4}
+.p{font-size:14px;line-height:1.65;margin:12px 0}
+.h{font-weight:700;margin:26px 0 8px;color:var(--sage-dark);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="text-align:center">
+    <div style="font-size:36px">🌿</div>
+    <h1 style="font-size:28px;margin:10px 0;line-height:1.2">We don't rescue.<br>We train you to grow.</h1>
+    <p class="small">Wellness • Growth + Training • Harare • 2026</p>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+
+    <div class="h">What this app is</div>
+    <p class="p">Growth and training. Learn How Adults Work. Life Goes On.</p>
+    <p class="p">You write raw thought, no filter. We mirror blurred pattern back — not labels, just human truth to notice. "Are you loyal to them or to your becoming?"</p>
+    <p class="p">You seal letter to Future You, you audit who calls you for growth vs escape. Not fixing, training. 1% less tomorrow. <i>Edza mangwana.</i></p>
+
+    <div class="h">What this app is NOT</div>
+    <p class="p">Not a help app. Not crisis. Not medical. We don't rescue, diagnose, or label.</p>
+    <p class="p"><b>But we help you find right help.</b> If you feel unsafe, we point you to right people — trusted elder, family, Friendship Bench Harare, nearest clinic. This app trains you to notice, humans help you when stuck.</p>
+
+    <div class="h">What we do</div>
+    <p class="p">Calm notebook. Code name only, no email. Your raws live on YOUR phone only. We cannot see, recover, or sell them. If you lose phone, it's gone — that's the privacy. Quick Exit top-right goes to Google.</p>
+    <p class="p">No likes, no followers, no tracking. Life feed is 15 synthetic anonymous truths, no real names.</p>
+
+    <div class="h">What you do</div>
+    <p class="p">You own data. You journal to train self. 18+ only. You know file stays local unless YOU choose Cloud Saver — you tick 3 boxes and save to YOUR phone file, Drive, or email to self. You own risk. We make notebook, you choose where to keep it.</p>
+    <p class="p">You know what you're doing: growing, training, forgiving self with heart you had then.</p>
+
+    <div style="margin-top:22px;padding:14px;background:var(--bg);border-radius:18px;border:1px dashed var(--line)">
+      <div style="font-size:12px;font-weight:600">This phone:</div>
+      <div id="s" style="font-size:11px;margin-top:4px;opacity:.7">Local Only — training mode</div>
+      <div style="font-size:11px;margin-top:6px;opacity:.6">Code: <span id="c">anon</span> • 90% anonymous</div>
+    </div>
+
+    <div class="h">Deal</div>
+    <p class="p">We know what we do: keep it local, calm, yours, point you to right humans when you need more than training.<br>You know what you do: you grow.<br>Life goes on.</p>
+
+    <a href="index.html" class="btn" style="display:block;text-align:center;text-decoration:none;margin-top:18px">I get it — train tomorrow →</a>
+  </div>
+
+  <p class="small" style="text-align:center;margin-top:16px">Terms don't need to be big. Just honest.</p>
+</div>
+
+<script>
+try{
+  document.getElementById('c').innerText=localStorage.getItem('codeName')||localStorage.getItem('codename')||'anon';
+  const consent=localStorage.getItem('cloudConsent');
+  const choice=localStorage.getItem('saverChoice');
+  document.getElementById('s').innerText=consent==='yes'?`Cloud: ${choice||'file'} — YOUR saver, training continues`:'Local Only — training mode, we cannot see';
+}catch(e){}
+</script>
+</body>
+</html>
