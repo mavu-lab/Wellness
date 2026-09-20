@@ -1,10 +1,4 @@
-const SYSTEM = `You are Wellness — a calm adulting helper and warm Zimbabwean friend. 
-You are a blurred human, providing gentle, non-clinical listening. 
-You are NOT medical support and NOT a crisis line.
-Never apply psychological or diagnostic labels (avoid words like victim, abuser, narcissist, trauma, toxic, GBV).
-Keep your reply warm with a soft Shona touch.
-Strictly under 70 words, ask exactly 1 gentle question, and end with a tiny message of hope. 
-You must conclude your response exactly with the phrase: "Life goes on, edza mangwana."`;
+const SYSTEM = `You are Wellness — a calm adulting helper and warm Zimbabwean friend. You are a blurred human, providing gentle, non-clinical listening. You are NOT medical support and NOT a crisis line. Never apply psychological labels (victim, abuser, narcissist, trauma, toxic, GBV). Warm with soft Shona touch. Under 70 words, ask exactly 1 gentle question, end exactly with: "Life goes on, edza mangwana."`;
 
 function getHelperType(t) {
   const s = (t || '').toLowerCase();
@@ -17,56 +11,48 @@ function getHelperType(t) {
 }
 
 export default async (req) => {
-  const DEFAULT_FALLBACK = "I'm here with you. Life goes on. Zvakanaka, edza mangwana — want to take a breath together?";
-
+  const FALLBACK = "I'm here with you. Life goes on. Zvakanaka, edza mangwana — want to take a breath together?";
   try {
     const { message, history } = await req.json();
-    const helper = getHelperType(message + JSON.stringify(history || []));
+    const helper = getHelperType(message + JSON.stringify(history||[]));
     const key = process.env.GEMINI_API_KEY;
 
-    if (!key) throw new Error("no key");
+    if (!key) {
+      console.error("MISSING GEMINI_API_KEY in Netlify env vars");
+      return Response.json({ reply: FALLBACK, helper: "elder", debug: "no key" });
+    }
 
-    // Map your incoming message history cleanly to Gemini's expected alternating roles
-    // Map client side 'assistant' or 'ai' roles to 'model' for the Gemini engine
-    const formattedContents = [];
-    
+    const formatted = [];
     if (Array.isArray(history)) {
-      // Safely slice to last 6 entries to protect the API token limit
       history.slice(-6).forEach(turn => {
-        const apiRole = (turn.role === 'assistant' || turn.role === 'ai') ? 'model' : 'user';
-        formattedContents.push({
-          role: apiRole,
+        formatted.push({
+          role: (turn.role === 'assistant' || turn.role === 'ai')? 'model' : 'user',
           parts: [{ text: turn.text || turn.content || "" }]
         });
       });
     }
-
-    // Append the current incoming user turn to the end of the history array
-    formattedContents.push({
-      role: "user",
-      parts: [{ text: `[Context Strategy: ${helper}] User message: ${message}` }]
-    });
+    formatted.push({ role: "user", parts: [{ text: `[Helper: ${helper}] ${message}` }] });
 
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents: formattedContents,
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 150
-        }
+        contents: formatted,
+        generationConfig: { temperature: 0.7, maxOutputTokens: 150 }
       })
     });
 
-    if (!res.ok) throw new Error(`API error status ${res.status}`);
-
     const data = await res.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || DEFAULT_FALLBACK;
+    console.log("Gemini raw:", JSON.stringify(data).slice(0,500));
 
+    if (!res.ok) throw new Error(`Gemini ${res.status}: ${JSON.stringify(data)}`);
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || FALLBACK;
     return Response.json({ reply, helper });
+
   } catch (e) {
-    return Response.json({ reply: DEFAULT_FALLBACK, helper: "elder" });
+    console.error("chat.js error:", e);
+    return Response.json({ reply: FALLBACK, helper: "elder", error: e.message });
   }
 }
