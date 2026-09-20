@@ -1,7 +1,18 @@
 {
   "name": "wellness",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Wellness — Learn How Adults Work. Life Goes On.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "netlify dev"
+  },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.0"
+    "@google/generative-ai": "^0.22.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
   }
 }

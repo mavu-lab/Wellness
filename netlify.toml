@@ -3,3 +3,12 @@
 
 [functions]
   node_bundler = "esbuild"
+  # Enforces modern Node runtimes supporting global fetch natively
+  node_version = "20"
+
+# Explicitly protects your client-side environment configurations
+[context.production.environment]
+  NODE_ENV = "production"
+
+[context.deploy-preview.environment]
+  NODE_ENV = "development"

@@ -1,127 +1,137 @@
-# Wellness — Learn How Adults Work. Life Goes On.
-> Not a GBV website. Not a teaching website. A raw wellness journal that even judges keep.
+# 🌿 Wellness — Learn How Adults Work. Life Goes On.
 
-🌿 Live: sage calm, beige, local-first. `Private • No account • Local only • Just you`
+> **System Core:** A raw, local-first wellness journal and non-clinical pattern mirror designed for high-privacy emotional processing.
 
-## The Problem
-Wellness apps assume the individual's problem. They give 6 cards: "you are bullied".
+---
 
-But adults are insecure about themselves. Sometimes they are the problem. Sometimes no problem — just low self.
+### 📥 Architecture Status
+`Private` • `No Account Verification` • `Local-First Baseline` • `Data Sovereign`
 
-Errors are blurred lines. Violence has traits of environment. We can learn harmony.
+Wellness is a lightweight, client-side Single Page Application (SPA) designed to build personal psychological resilience without introducing restrictive clinical diagnostics. Built entirely with vanilla web technologies, it optimizes data transmissions over low-bandwidth connections while maintaining absolute on-device data sovereignty.
 
-If we label, we become a website, not wellness.
+---
 
-## Adult Struggles We Mirror
-For all adult struggles, not just one:
+## 🎯 The Core Problem & Product Philosophy
 
-1. **The Age Clock** — "Why haven't I figured abc by this age?" Still single, no house, comparing.
-2. **Money Extremes** — Excess or nothing are both same extremes. Wealth is for healthy family, not excess. Provider burnout, black tax.
-3. **It's Not You** — Sometimes partner has traumatic background. Not because you failed.
-4. **Adult Bullying** — Changed face from physical to gossip and mind games, WhatsApp exclusion.
-5. **Two Healed People** — Successful relationship needs 2 healed people, 2 peaces. Not just love.
-6. **Fix vs Let Go** — There is time to fix and there is time to let go.
-7. **Heal Scars** — Forgive parents, yourself, relationship you found yourself in.
-8. **Self Shame** — "What did I do? Why did I choose this partner?" 3am replay.
-9. **Destructive Habits** — Doom scrolling, over-explaining, saying yes, checking phone. Comfort that destroys.
-10. **Good Friendship, Bad Advice** — Some friends call you for alcohol not business idea. It's okay, but are you growing? Not all good people are good for growth.
-11. **Growth vs Loyalty Guilt** — Growing feels like betraying family or friends.
-12. **The Test** — You will be tested, it's okay. You will lose, it's also okay. Move with both lenses.
+Traditional wellness applications operate on forced diagnostics. They push individuals into pre-formatted, rigid checkboxes (e.g., forcing a user to select static cards like "I am being bullied" or labeling them as a "victim" or "abuser"). 
 
-## How It Works — Raw Model
-We don't teach. We listen. AI learns from raw.
+In reality, adult struggles are layered, blurred, and rarely linear. Often, individuals struggle with self-image, interpersonal friction, or low self-regard without needing—or wanting—a definitive psychological label. Forcing external labels can transform a trusted platform into a cold tracking mechanism rather than a safe processing space.
 
-**1. Landing — Hero**
-Code name only. No email. Rotating hook: *"Good friendship, bad advice — both true"*. Sage hero, 32px radius, local-only trust line.
+Wellness provides a completely unmonitored, private digital baseline. It allows users to write freely, notice recurring behavioral loops, process complex personal environments, and navigate everyday social friction safely before conflicts escalate into broader interpersonal or domestic disputes.
 
-**2. Raw Thought**
-No question, no assumption. Placeholder: `Raw thought no filter... Zvakanaka, edza mangwana`. Capture → Mirror.
+---
 
-**3. Chat — AI first, helper by need**
-`raw, no filter...` → Gemini via Netlify AI Gateway. Under 90 words, warm, Shona touch. Forbids: victim, abuser, narcissist, trauma, GBV labels. Uses: "I notice...", 1 soft question, tiny action + hope.
+## 🧠 The 12 Foundational Adult Archetypes Processed
 
-**4. Letterbox — To Future You**
-Not letter to them. To Future Me: "Forgive yourself for choosing with the heart you had then." 
-- Lens 1: What happened? 
-- Lens 2: What did I learn?
-- Seal 2 days (edza mangwana) or 30 days. Future unlocks only when heart ready.
+The system's keyword routing matrices (`getHelperType`) parse raw text entries against twelve primary adult struggle structures:
 
-**5. Mirror — Not Cards**
-No 6 cards. Mirrors pattern gently:
-> "I notice you mention guilt 3x this week. Sometimes insecurity, sometimes control — both human. Are you loyal to them or to your becoming?"
-Ends with: *You okay. You can try tomorrow. Life goes on.*
+1. **The Age Clock** — Milestone anxiety and social comparison (e.g., "Why haven't I figured this out by this age?").
+2. **Money Extremes** — Financial polarization, safety vs. love trade-offs, provider strain, and black tax.
+3. **Not You** — Deconstructing misplaced internal guilt when a partner's behavioral loop stems from historical background trauma.
+4. **Adult Bullying** — Modern variations of social friction (workplace whispers, targeted gossip, active WhatsApp group exclusion).
+5. **Two Healed People** — Treating relationship success as a combination of two distinct, personal peaces, rather than unstable love alone.
+6. **Fix vs. Let Go** — Establishing healthy personal limits between active dispute resolution and clean detachment.
+7. **Heal Scars** — Executing structured internal reconciliation with family histories, past connections, and self-regret.
+8. **Self Shame** — Processing late-night analytical replays of historical relational selections.
+9. **Destructive Habits** — Spotting habituated comfort loops (infinite scrolling, over-explaining, emotional check-ins, or over-drinking).
+10. **Good Friendship, Bad Advice** — Evaluating social networks based on developmental growth rather than enabling behaviors.
+11. **Growth vs. Loyalty Guilt** — Managing internal friction when personal evolution necessitates boundary changes with family or childhood peers.
+12. **The Test** — Navigating inevitable personal failures by analyzing the event concurrently through operational lenses of loss and growth.
 
-**6. Life Goes On**
-Anonymous feed of 15 truths — errors are human, not just you. Plus Private Audit: Who calls you for growth? Who for escape? No sending, just seeing.
+---
 
-**7. Cloud Saver — Optional, YOUR saver only**
-- **Local by default:** We cannot recover your data. Privacy shield.
-- If you journal to organize life, CHOOSE cloud — 3 consents required:
-    - My thoughts will leave phone to MY saver
-    - I own my data. Wellness = Help as a Service, not liable
-    - Not medical, not crisis. 18+. If unsafe, I talk to human
-- Choices: `My Phone — Encrypted File (safest)` downloads `wellness-YYYY-MM-DD.json`, `My Drive` (you upload), `My Email` (you send). File leaves phone only to YOUR saver. We cannot see.
+## 🛠️ Complete Project Directory Structure
 
-## Tech — Vanilla SPA, Disguised, Local-First
 ```text
 wellness/
-├── index.html          # 6-div SPA: welcome, thought, chat, future, mirror, life, settings
-├── css/style.css       # calm beige #f6f1e8 + sage #8da99a, 28px radius, hero landing
+├── backend/
+│   ├── prompt.js       # Core system instructions and the 12 struggle regex matrices
+│   └── server.js       # Legacy local HTTP backup server utilizing the @google/generative-ai SDK
+├── css/
+│   └── style.css       # Mobile-optimized styles (#f6f1e8 beige, #8da99a sage, 32px panel radiuses)
 ├── js/
-│   ├── store.js        # localStorage only — raws, futures, chats, growth
-│   ├── app.js          # show/hide pages + growth counter + Quick Exit → Google
-│   ├── chat.js         # chat + mod queue (?mod=1)
-│   └── ai.js           # calls /.netlify/functions/ai (Gemini) — offline fallback
+│   ├── ai.js           # Client-side routing layer interfacing with Netlify edge routes
+│   ├── app.js          # SPA panel navigation, growth logging, and emergency quick exit logic
+│   ├── chat.js         # Chat controller managing conversation arrays and mod tracking options
+│   └── store.js        # LocalStorage persistence manager enforcing isolated prefix schemas
 ├── netlify/
-│   └── functions/ai.js # Netlify AI Gateway → Gemini, prompt with 12 adult struggles
-├── terms.html          # Help as a Service shield — badges, consent status
-└── README.md
+│   └── functions/      # Serverless route paths processing API calls via Google AI Gateway
+│       ├── chat.js     # Manages alternating conversational context loops (user vs. model roles)
+│       ├── mirror.js   # Evaluates raw entry lists to return macro pattern reflections
+│       └── suggest.js  # Produces structured JSON recovery suggestions matching strict schemas
+├── .gitignore          # Safeguards local credentials from remote repository tracking
+├── index.html          # Core single-page view wrapper layout document
+├── netlify.toml        # Netlify production build instructions (Node 20 environment / esbuild)
+├── package.json        # Unified build module metadata and dependency declarations
+└── terms.html          # Help as a Service shield contract and local state diagnostic component
 ```
-- **Frontend:** Vanilla JS, 1 HTML, no framework, Quick Exit top-right
-- **Backend:** Netlify Functions + AI Gateway (no key in frontend)
-- **Safety:** Disguised as wellness journal, code name only, no account, 18+
-- **Design:** Sage calm, blurred human — not clinical
 
-## Privacy — Help as a Service
-- Not medical advice. Not crisis. Local only, we don't store thoughts on server.
-- If unsafe, talk to trusted person or Friendship Bench.
-- You own your data. Delete: Settings → Stay Local Only or clear site data.
+---
 
-## Run Locally
+## 🔄 Core Functional Workflows
 
-### Frontend only (works offline)
+### 1. Ingestion & Private Onboarding
+The system initializes without checking identity parameters or requiring an email address. It presents a dynamically cycling hook array to establish immediate trust, and uses a client-side layout router to guide users directly into privacy screens using an anonymous code name.
+
+### 2. Low-Bandwidth Data Passing (Client to Edge)
+When a user requests an interaction, the client-side system gathers text elements directly from browser memory. Rather than stringifying entire JSON blocks, it packages elements into clean arrays via `js/ai.js`, ensuring minimal byte overhead is sent across the wire.
+
+### 3. Structured Asymmetric Gemini Mirroring
+* **Gateway Route:** Relays the user array via a serverless function endpoint pointing securely to **Google Gemini (1.5 Flash)**.
+* **System Parameter Isolation:** System constraints are passed to Gemini via formal `systemInstruction` arrays to ensure configuration instructions never blend with raw user entry text.
+* **The Elder Persona Protocol:** Restricts responses to under 80 words with a warm, non-judgmental regional tone. It blocks diagnostic labels entirely (forces fallback loops if words like *victim*, *abuser*, *narcissist*, *trauma*, or *GBV* appear).
+* **Deterministic Token Constraints:** Commands Gemini's token generation configuration weights to match structural JSON object schemas (`responseMimeType: "application/json"`) and enforces a rigid ending signature: `"Life goes on, edza mangwana."`
+
+### 4. Dual-Lens Letterbox Envelope
+Allows users to write letters to a future version of themselves. The component prompts the user to organize the letter content through two distinct perspectives before time-locking:
+* **Lens 1 (Contextual):** What exactly occurred?
+* **Lens 2 (Developmental):** What was learned from this space?
+* **Release Lock Loops:** Applies client-side time locks restricting data access for either 2 days (`edza mangwana`) or 30 days.
+
+### 5. Help as a Service Protection Guardrails
+* **Strategic Interface Disguise:** The system is disguised visually as a minimal personal journal to guarantee runtime safety if an unauthorized party views the user's screen.
+* **Panic Exit Protocol:** Includes a fixed, absolute-positioned `Quick Exit ✕` button at the top-right viewport boundary. Clicking it swaps the current browser history stack and redirects the viewport instantly to Google.
+* **Direct Civic Referral Mapping:** The platform states inside `terms.html` that it is an automated tracking tool rather than a crisis medical center. If severe threats or domestic violence patterns are identified, it maps direct referral routes to certified local support systems, including the **Friendship Bench**.
+
+---
+
+## 🚀 Running the App Locally
+
+### 1. Production UI Run (Offline Local-First Mode)
 ```bash
-open index.html
-# or
+# Execute via standard local server utility
 npx serve .
 ```
 
-### With AI (Netlify)
+### 2. Edge Serverless Function Emulation
 ```bash
+# Fire up the Netlify local CLI emulation tool
 netlify dev
-# Needs env: GEMINI_API_KEY in Netlify dashboard (via AI Gateway)
 ```
+*Note: Ensure your local environment configuration profile includes a populated `GEMINI_API_KEY` parameter.*
 
-### Legacy backend (if using Node http)
+### 3. Native Node.js Server Run (Backup Engine Path)
 ```bash
 cd backend
-npm install dotenv @google/generative-ai
+npm install
 node server.js
 ```
 
-## Judges Flow (2 min demo)
-1. Welcome — hook rotates: "Some friends call for alcohol, not business" → code name
-2. Raw Thought — types: "I love them but they keep me small" → Capture
-3. Mirror — Reflect → "Not all good people are good for growth..."
-4. Future You — "Forgive yourself for choosing with heart you had then" + Two Lenses → Seal 2 days
-5. Life Goes On — 15 truths + audit growth vs escape
-6. Settings — Cloud Saver: 3 checkboxes left-aligned, Enable → file downloads to YOUR phone. Terms → Help as a Service shield.
+---
 
-*Pitch:* _The app even judges keep. Because wellness is ongoing — even apologizing to yourself is growth. Life goes on. Edza mangwana._
+## 🎯 Verification Demo Flow (The 2-Minute Full Test)
 
-## Vision
-> Learn How Adults Work. Life Goes On.
+1. **Gateway Entry:** Navigate to the gateway view, enter a temporary handle, and let the background interval rotate the visual text hooks.
+2. **Raw Capture:** Type an unfiltered, complex thought (e.g., *"I want to launch this business but family remittance is keeping me broke"*).
+3. **Pattern Reflection:** Click `Reflect My Raws`. The system will instantly call Gemini and return a warm, non-diagnostic behavioral reflection based on past entries.
+4. **Time-Lock Envelope:** Navigate to the Letterbox, apply Lens 1 and Lens 2 parameters, and seal the note under a 2-day temporal window.
+5. **Private Auditing:** Open the growth tracker, input your network names, and select `See blurred truth` to view your growth vs. escape balance metrics locally.
+6. **Data Sovereignty Check:** Enter Settings, toggle permissions, or completely wipe your device footprint instantly with a single data clearance click.
 
-We all learned punishment somewhere. What did you learn? Wellness is not about being fixed. It's about moving from one bad situation with both lenses, believing there is something for you out there.
+---
 
-Built in Harare, for blurred humans. Death of something is birth of something.
+## 🗺️ Vision
+
+Human growth requires shifting away from purely punitive patterns. True stability is built when individuals are trained to analyze their real-world environments through operational lenses of growth and resilience, believing there is a path forward for them.
+
+Built in Harare, for complex individuals. Death of something is birth of something.

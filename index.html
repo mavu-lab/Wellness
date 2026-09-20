@@ -9,6 +9,7 @@
 <body>
 <button id="quickExit" onclick="quickExit()">Quick Exit ✕</button>
 
+<!-- PANEL 1: WELCOME GATEWAY -->
 <div id="p-welcome" class="page active">
   <div class="card" style="text-align:center;margin-top:30px">
     <div style="font-size:32px">🌿</div>
@@ -21,6 +22,7 @@
   </div>
 </div>
 
+<!-- PANEL 2: RAW THOUGHT COMPONENT -->
 <div id="p-thought" class="page">
   <h3>← Raw Thought</h3>
   <div class="card">
@@ -31,6 +33,7 @@
   </div>
 </div>
 
+<!-- PANEL 3: CONVERSATIONAL CORE -->
 <div id="p-chat" class="page">
   <h3>💬 Chat</h3><small>AI first, helper by need — adulting, not judging</small>
   <div id="chatBox" class="card" style="height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px"></div>
@@ -46,6 +49,7 @@
   </div>
 </div>
 
+<!-- PANEL 4: TIME-LOCKED LETTERBOX -->
 <div id="p-future" class="page">
   <h3>✉️ To Future You</h3>
   <div class="card">
@@ -62,6 +66,7 @@
   </div>
 </div>
 
+<!-- PANEL 5: BEHAVIORAL PATTERN MIRROR -->
 <div id="p-mirror" class="page">
   <h3>🪞 Mirror</h3>
   <div class="card">
@@ -71,6 +76,7 @@
   </div>
 </div>
 
+<!-- PANEL 6: SYSTEM EXPERIENTIAL FEED -->
 <div id="p-life" class="page">
   <h3>👥 Life Goes On</h3><small>15 truths • anonymous • synthetic — no real names</small>
   <div id="lifeFeed" class="card" style="margin-top:10px;min-height:70px"></div>
@@ -88,11 +94,12 @@
   </div>
 </div>
 
+<!-- PANEL 7: PRIVACY OPT-IN SETTINGS -->
 <div id="p-settings" class="page">
   <h3>⚙️ Cloud Saver — Optional</h3>
   <div class="card" style="background:var(--bg);border:1px dashed var(--line)">
     <p style="font-size:13px"><b>Local by default:</b> We cannot recover your data. Privacy shield.<br>If you journal to organize life, CHOOSE cloud — YOUR saver.</p>
-  <label class="check-row"><input type="checkbox" id="consent1"><span>My thoughts will leave phone to MY saver</span></label>
+    <label class="check-row"><input type="checkbox" id="consent1"><span>My thoughts will leave phone to MY saver</span></label>
     <label style="font-size:13px;display:block"><input type="checkbox" id="consent2"> I own my data. Wellness = Help as a Service, not liable</label>
     <label style="font-size:13px;display:block"><input type="checkbox" id="consent3"> Not medical, not crisis. 18+. If unsafe, I talk to human</label><br>
     <select id="saverChoice" style="width:100%;padding:8px"><option value="file">My Phone — Encrypted File (safest)</option><option value="drive">My Google Drive — I upload</option><option value="email">My Email — Send to self</option></select><br><br>
@@ -103,6 +110,7 @@
   <div class="card" style="margin-top:12px"><a href="terms.html">Read full Terms — Help as a Service</a></div>
 </div>
 
+<!-- PERSISTENT MOBILE NAVIGATION DOCK -->
 <nav>
   <span onclick="show('p-thought')" id="n-thought">💭</span>
   <span onclick="show('p-chat')" id="n-chat">💬</span>
@@ -122,7 +130,7 @@
   window.WellnessAI = AI;
 </script>
 <script>
-// --- 15 truths from Adult Struggles list - no vernacular ---
+// --- Core Analytical Experience Data Arrays ---
 const lifeTruths = [
   "Age Clock: Why haven't I figured it out by this age? Heavy, blurred, human. Life goes on.",
   "Money extremes: Wealth for family, excess or nothing, provider burnout, black tax. Heavy.",
@@ -141,81 +149,120 @@ const lifeTruths = [
   "Try tomorrow: 1% less comfort that destroys, 1% more peace that builds. Life goes on."
 ];
 let lifeIdx = 0;
+
 function renderTruth(){
-  const el=document.getElementById('lifeFeed');
-  if(el) el.innerHTML=`<small style="line-height:1.5">${lifeTruths[lifeIdx]}</small>`;
-  const c=document.getElementById('lifeCount');
-  if(c) c.innerText=`${lifeIdx+1}/15`;
+  const el = document.getElementById('lifeFeed');
+  if (el) el.innerHTML = `<small style="line-height:1.5">${lifeTruths[lifeIdx]}</small>`;
+  const c = document.getElementById('lifeCount');
+  if (c) c.innerText = `${lifeIdx + 1}/15`;
 }
+
 function nextTruth(d){
-  lifeIdx=(lifeIdx+d+15)%15;
+  lifeIdx = (lifeIdx + d + 15) % 15;
   renderTruth();
 }
 
-const hooks=["Why haven't I figured this by 32?","Some friends call for alcohol, not business","Did I choose from wound or want?","Good friendship, bad advice — both true","Adult bullying is gossip now","You will be tested, you will lose — it's okay"];
-let hi=0;
-setInterval(()=>{
-  const el=document.getElementById('rotatingHook'); if(el){ el.innerText=hooks[hi%hooks.length]; hi++; }
-  const h2=document.getElementById('rawHint'); if(h2){ h2.innerText="e.g., "+hooks[(hi+1)%hooks.length]; }
-},3200);
+// --- Dynamic Rotating UI Hook Intervals ---
+const hooks = [
+  "Why haven't I figured this by 32?",
+  "Some friends call for alcohol, not business",
+  "Did I choose from wound or want?",
+  "Good friendship, bad advice — both true",
+  "Adult bullying is gossip now",
+  "You will be tested, you will lose — it's okay"
+];
+let hi = 0;
 
+setInterval(() => {
+  const el = document.getElementById('rotatingHook'); if (el) { el.innerText = hooks[hi % hooks.length]; hi++; }
+  const h2 = document.getElementById('rawHint'); if (h2) { h2.innerText = "e.g., " + hooks[(hi + 1) % hooks.length]; }
+}, 3200);
+
+// --- Local Analytical Operations ---
 function audit(){
-  let g=document.getElementById('growCall').value.trim();
-  let e=document.getElementById('escapeCall').value.trim();
-  let out=document.getElementById('auditText');
-  if(!g && !e){ out.innerText="Write two names — private, local only."; return; }
-  // Rule: Mirror gently, blurred line, 1 question, tiny action + hope, under 90 words
-  out.innerText = `I notice ${g||'growth'} brings growth and ${e||'escape'} brings escape — good person bad advice, both true. Are you loyal to them or to your becoming? Try one less escape this week. Life goes on, something is out there for you.`;
+  let g = document.getElementById('growCall').value.trim();
+  let e = document.getElementById('escapeCall').value.trim();
+  let out = document.getElementById('auditText');
+  if (!g && !e) { out.innerText = "Write two names — private, local only."; return; }
+  
+  out.innerText = `I notice ${g || 'growth'} brings growth and ${e || 'escape'} brings escape — good person bad advice, both true. Are you loyal to them or to your becoming? Try one less escape this week. Life goes on, something is out there for you.`;
 }
 
-function quickExit(){ window.location.href="https://google.com"; window.history.replaceState({},'', '/'); }
+function quickExit(){ 
+  window.location.href = "https://google.com"; 
+  window.history.replaceState({}, '', '/'); 
+}
 
+// --- Asymmetric Gemini Mirror Route Request Mapper ---
 async function reflect(){
-  const raws = Store.getRaws().map(r=>r.text).join('\n').slice(-1200);
-  if(!raws){ document.getElementById('mirrorText').innerText="Write one raw first — no filter."; return; }
-  document.getElementById('mirrorText').innerText="Mirroring...";
-  try{
-    const data = await window.WellnessAI.getMirror(raws);
+  // Safe Array Extract: Bundles distinct entries into arrays to prevent edge runtime server errors
+  const recentRawsArray = Store.getRaws().map(r => r.text || "").filter(Boolean).slice(-10);
+  
+  if (recentRawsArray.length === 0) { 
+    document.getElementById('mirrorText').innerText = "Write one raw first — no filter."; 
+    return; 
+  }
+  
+  document.getElementById('mirrorText').innerText = "Mirroring...";
+  try {
+    const data = await window.WellnessAI.getMirror(recentRawsArray);
     document.getElementById('mirrorText').innerText = data.mirror;
     document.getElementById('mirrorHelper').innerText = `Helper: ${data.helper} — You okay, try tomorrow.`;
-  }catch(e){
-    document.getElementById('mirrorText').innerText="I notice heavy tonight — blurred, human. Good person bad habit, both true. Life goes on, try tomorrow 1% less.";
+  } catch(e) {
+    document.getElementById('mirrorText').innerText = "I notice heavy tonight — blurred, human. Good person bad habit, both true. Life goes on, try tomorrow 1% less.";
   }
 }
 
+// --- Local Privacy Variable Mutators ---
 function enableCloudSaver(){
-  const c1=document.getElementById('consent1').checked;
-  const c2=document.getElementById('consent2').checked;
-  const c3=document.getElementById('consent3').checked;
-  if(!c1||!c2||!c3) return alert('Check all 3 consents');
-  const choice=document.getElementById('saverChoice').value;
-  localStorage.setItem('cloudConsent','yes');
-  localStorage.setItem('saverChoice',choice);
-  document.getElementById('cloudStatus').innerText=`Status: Consent yes — ${choice}`;
+  const c1 = document.getElementById('consent1').checked;
+  const c2 = document.getElementById('consent2').checked;
+  const c3 = document.getElementById('consent3').checked;
+  if (!c1 || !c2 || !c3) return alert('Check all 3 consents');
+  
+  const choice = document.getElementById('saverChoice').value;
+  localStorage.setItem('w_cloudConsent', 'yes');
+  localStorage.setItem('w_saverChoice', choice);
+  document.getElementById('cloudStatus').innerText = `Status: Consent yes — ${choice}`;
 }
+
 function disableCloudSaver(){
-  localStorage.setItem('cloudConsent','no');
-  document.getElementById('cloudStatus').innerText='Status: Local Only';
+  localStorage.setItem('w_cloudConsent', 'no');
+  document.getElementById('cloudStatus').innerText = 'Status: Local Only';
 }
-function sealLetter(days=30){
-  let v=document.getElementById('future').value.trim(); if(!v) return;
-  let l1=document.getElementById('lens1')?.value||''; let l2=document.getElementById('lens2')?.value||'';
-  let full = v + (l1?`\nLens1:${l1}`:'') + (l2?`\nLens2:${l2}`:'');
-  Store.saveFuture(full);
-  let arr=Store.getFutures(); arr[arr.length-1].unlock=Date.now()+days*24*60*60*1000;
-  localStorage.setItem('futures', JSON.stringify(arr));
-  document.getElementById('future').value=''; document.getElementById('lens1').value=''; document.getElementById('lens2').value='';
-  if(typeof updateGrowth==='function') updateGrowth();
-  alert(`Sealed for ${days} days`);
+
+function sealLetter(days = 30){
+  let v = document.getElementById('future').value.trim(); if (!v) return;
+  let l1 = document.getElementById('lens1')?.value || ''; 
+  let l2 = document.getElementById('lens2')?.value || '';
+  let full = v + (l1 ? `\nLens 1: ${l1}` : '') + (l2 ? `\nLens 2: ${l2}` : '');
+  
+  Store.saveFuture(full, days);
+  document.getElementById('future').value = ''; 
+  document.getElementById('lens1').value = ''; 
+  document.getElementById('lens2').value = '';
+  
+  if (typeof updateGrowth === 'function') updateGrowth();
+  alert(`Sealed for Future You — unlocks in ${days} days. Forgive with the heart you had then.`);
 }
-if(window.location.search.includes('mod=1')){
-  const mq=document.getElementById('modQueue'); if(mq) mq.style.display='block';
-  const mb=document.getElementById('modBar'); if(mb) mb.style.display='flex';
+
+// --- Core Runtime Bootstrap Orchestration ---
+if (window.location.search.includes('mod=1')){
+  const mq = document.getElementById('modQueue'); if (mq) mq.style.display = 'block';
+  const mb = document.getElementById('modBar'); if (mb) mb.style.display = 'flex';
 }
-document.addEventListener('DOMContentLoaded', ()=>{
+
+document.addEventListener('DOMContentLoaded', () => {
   renderTruth();
-  const ci=document.getElementById('chatInput');
-  if(ci) ci.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendChat(); });
+  const ci = document.getElementById('chatInput');
+  if (ci) ci.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(); });
+  
+  // Rehydrate state properties cleanly from the localized storage namespaces
+  const consent = localStorage.getItem('w_cloudConsent');
+  const choice = localStorage.getItem('w_saverChoice');
+  if (consent === 'yes') {
+    document.getElementById('cloudStatus').innerText = `Status: Consent yes — ${choice}`;
+  }
 });
 </script>
 </body>

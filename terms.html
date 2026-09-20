@@ -39,6 +39,7 @@
     <p class="p">You own data. You journal to train self. 18+ only. You know file stays local unless YOU choose Cloud Saver — you tick 3 boxes and save to YOUR phone file, Drive, or email to self. You own risk. We make notebook, you choose where to keep it.</p>
     <p class="p">You know what you're doing: growing, training, forgiving self with heart you had then.</p>
 
+    <!-- LIVE DEVICE STATE COMPONENT CARD -->
     <div style="margin-top:22px;padding:14px;background:var(--bg);border-radius:18px;border:1px dashed var(--line)">
       <div style="font-size:12px;font-weight:600">This phone:</div>
       <div id="s" style="font-size:11px;margin-top:4px;opacity:.7">Local Only — training mode</div>
@@ -55,12 +56,21 @@
 </div>
 
 <script>
-try{
-  document.getElementById('c').innerText=localStorage.getItem('codeName')||localStorage.getItem('codename')||'anon';
-  const consent=localStorage.getItem('cloudConsent');
-  const choice=localStorage.getItem('saverChoice');
-  document.getElementById('s').innerText=consent==='yes'?`Cloud: ${choice||'file'} — YOUR saver, training continues`:'Local Only — training mode, we cannot see';
-}catch(e){}
+// --- Client State Alignment Processor ---
+try {
+  // Pulling client configuration handle using the uniform custom prefix layout rules
+  document.getElementById('c').innerText = localStorage.getItem('w_codename') || 'anon';
+  
+  const consent = localStorage.getItem('w_cloudConsent');
+  const choice = localStorage.getItem('w_saverChoice');
+  
+  // Hydrating text parameters based on active local variable consent state profiles
+  document.getElementById('s').innerText = (consent === 'yes') 
+    ? `Cloud: ${choice || 'file'} — YOUR saver, training continues` 
+    : 'Local Only — training mode, we cannot see';
+} catch (e) {
+  // Graceful fallback execution path for browser permission edge environments
+}
 </script>
 </body>
 </html>
