@@ -4,6 +4,11 @@
 
 ---
 
+**Live Demo:** https://wellness-zw.netlify.app
+**Track:** Stability & Social Cohesion
+
+---
+
 ### 📥 Architecture Status
 `Private` • `No Account Verification` • `Local-First Baseline` • `Data Sovereign`
 
