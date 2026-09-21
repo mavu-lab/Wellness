@@ -1,8 +1,8 @@
 // Wellness AI Gateway - Fixed with error logging
 const API = {
-  mirror: '/.netlify/functions/mirror',
-  chat: '/.netlify/functions/chat',
-  suggest: '/.netlify/functions/suggest'
+  mirror: '/api/mirror',
+  chat: '/api/chat',
+  suggest: '/api/suggest'
 };
 
 async function post(url, body) {

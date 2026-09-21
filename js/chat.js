@@ -97,7 +97,7 @@ async function sendMod() {
   renderChat(); inp.value = '';
   
   try { 
-    await fetch('/.netlify/functions/moderate', { method: 'POST', body: JSON.stringify({ reply: text, helper }) }); 
+    await fetch('/api/moderate', { method: 'POST', body: JSON.stringify({ reply: text, helper }) }); 
   } catch (e) {}
 }
 
