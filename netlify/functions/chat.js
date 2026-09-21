@@ -1,58 +1,32 @@
-const SYSTEM = `You are Wellness — a calm adulting helper and warm Zimbabwean friend. You are a blurred human, providing gentle, non-clinical listening. You are NOT medical support and NOT a crisis line. Never apply psychological labels (victim, abuser, narcissist, trauma, toxic, GBV). Warm with soft Shona touch. Under 70 words, ask exactly 1 gentle question, end exactly with: "Life goes on, edza mangwana."`;
+import { callGemini } from "./gemini.js";
 
-function getHelperType(t) {
-  const s = (t || '').toLowerCase();
-  if (s.match(/money|wealth|broke|business|debt|black tax/)) return "money";
-  if (s.match(/drink|alcohol|sleep|tired|body|habit/)) return "health";
-  if (s.match(/friend|advice|growing|loyal/)) return "growth";
-  if (s.match(/gossip|bully|workplace|exclusion/)) return "peer";
-  if (s.match(/fix|let go|scar|heal|tested/)) return "healer";
+const SYSTEM = `You are Wellness — a calm adulting helper and warm Zimbabwean friend. You are a blurred human, providing gentle, non-clinical listening. You are NOT medical support and NOT a crisis service. Be warm, concise, practical, and never diagnose. If someone may be in immediate danger, encourage them to contact local emergency services or a trusted person.`;
+
+function getHelperType(text) {
+  const s = (text || "").toLowerCase();
+  if (/money|wealth|broke|business|debt|black tax/.test(s)) return "money";
+  if (/drink|alcohol|sleep|tired|body|habit/.test(s)) return "health";
+  if (/friend|advice|growing|loyal/.test(s)) return "growth";
+  if (/gossip|bully|workplace|exclusion/.test(s)) return "peer";
+  if (/fix|let go|scar|heal|tested/.test(s)) return "healer";
   return "elder";
 }
 
 export default async (req) => {
-  const FALLBACK = "I'm here with you. Life goes on. Zvakanaka, edza mangwana — want to take a breath together?";
+  const fallback = "I'm here with you. Life goes on. Zvakanaka, edza mangwana — want to take a breath together?";
+
   try {
     const { message, history } = await req.json();
-    const helper = getHelperType(message + JSON.stringify(history||[]));
-    const key = process.env.GEMINI_API_KEY;
+    const helper = getHelperType(message + JSON.stringify(history || []));
+    const recentHistory = Array.isArray(history)
+      ? history.slice(-6).map((turn) => `${turn.role || "user"}: ${turn.text || turn.content || ""}`).join("\n")
+      : "";
+    const prompt = `${SYSTEM}\n\nHelper type: ${helper}\nRecent conversation:\n${recentHistory}\n\nRespond to this message: ${message}`;
+    const reply = await callGemini(prompt);
 
-    if (!key) {
-      console.error("MISSING GEMINI_API_KEY in Netlify env vars");
-      return Response.json({ reply: FALLBACK, helper: "elder", debug: "no key" });
-    }
-
-    const formatted = [];
-    if (Array.isArray(history)) {
-      history.slice(-6).forEach(turn => {
-        formatted.push({
-          role: (turn.role === 'assistant' || turn.role === 'ai')? 'model' : 'user',
-          parts: [{ text: turn.text || turn.content || "" }]
-        });
-      });
-    }
-    formatted.push({ role: "user", parts: [{ text: `[Helper: ${helper}] ${message}` }] });
-
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents: formatted,
-        generationConfig: { temperature: 0.7, maxOutputTokens: 150 }
-      })
-    });
-
-    const data = await res.json();
-    console.log("Gemini raw:", JSON.stringify(data).slice(0,500));
-
-    if (!res.ok) throw new Error(`Gemini ${res.status}: ${JSON.stringify(data)}`);
-
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || FALLBACK;
-    return Response.json({ reply, helper });
-
-  } catch (e) {
-    console.error("chat.js error:", e);
-    return Response.json({ reply: FALLBACK, helper: "elder", error: e.message });
+    return Response.json({ reply: reply || fallback, helper });
+  } catch (error) {
+    console.error("chat.js error:", error);
+    return Response.json({ reply: fallback, helper: "elder", error: error.message });
   }
-}
+};
